@@ -115,9 +115,9 @@ let currentQuestionNumber= 0;
 let score= 0;
 
 
-//This function load quiz
+//This function starts quiz
 function startQuiz(){
-$('.box').on('click', '.js-start', function(event){
+$('.js-box').on('click', '.js-start', function(event){
     renderQuestion();
     updateProgress();
     });
@@ -126,25 +126,30 @@ $('.box').on('click', '.js-start', function(event){
 //This function renders question
 function renderQuestion(){
     let questionText= STORE[currentQuestionNumber];
-    let questionHtml= `<form class="js-question"><fieldset>
-    <legend>${questionText.question}</legend>               
-    <input type="radio" id="${questionText.options[0]}" value="${questionText.options[0]}"name="answer" required>
-    <label for="${questionText.options[0]}">${questionText.options[0]}</label><br/>                       
-    <input type="radio" id="${questionText.options[1]}" value="${questionText.options[1]}"name="answer" required>
-    <label for="${questionText.options[1]}">${questionText.options[1]}</label><br/>       
+    let questionHtml= `<form class="js-question flex-c"><fieldset>
+    <legend>${questionText.question}</legend>
+    <br>              
+    <input type="radio" id="${questionText.options[0]}" value="${questionText.options[0]}"name="answer" required> 
+    <label for="${questionText.options[0]}">${questionText.options[0]}</label>
+    <br>                    
+    <input type="radio" id="${questionText.options[1]}" value="${questionText.options[1]}"name="answer" required> 
+    <label for="${questionText.options[1]}">${questionText.options[1]}</label>
+    <br>      
     <input type="radio" id="${questionText.options[2]}" value="${questionText.options[2]}" name="answer" required>
-    <label for="${questionText.options[2]}">${questionText.options[2]}</label></br>
+    <label for="${questionText.options[2]}">${questionText.options[2]}</label>
+    <br>
     <input type="radio" id="${questionText.options[3]}" value="${questionText.options[3]}" name="answer" required>
-    <label for="${questionText.options[3]}">${questionText.options[3]}</label><br>
+    <label for="${questionText.options[3]}">${questionText.options[3]}</label>
+    <br>
     <button type="submit" class="js-submit">Submit</button>
     </fieldset>
     </form>`;
-   $('.box').html(questionHtml);   
+   $('.js-box').html(questionHtml);   
 }
  
 //this function check answer
 function checkAnswer(){
-    $('.box').on('submit', '.js-question', function(event){
+    $('.js-box').on('submit', '.js-question', function(event){
     event.preventDefault();
     let selected= $('input:checked')
     let answer= selected.val();
@@ -176,24 +181,26 @@ function correctAnswer(){
     <section class="js-button">
         <button type="button" class="js-next">Next</button>
     </section>`
-    $('.box').html(correct);
+    $('.js-box').html(correct);
     score++;
 }
 //displays html when answer is wrong
 function wrongAnswer(){
+    answerText= STORE[currentQuestionNumber];
     const wrong= `<h2>No good!</h2>
     <section class="image">
         <img src="img/missed.jpg" alt="david akers on knees after missing field goal" class="container-img">
     </section>
+    <p>The correct answer was ${answerText.answer}.</p>
     <section class="js-button">
         <button type="button" class="js-next">Next</button>
     </section>`
-    $('.box').html(wrong);
+    $('.js-box').html(wrong);
 }
 
 //moves on to next question or displays results
 function nextQuestion(){
-    $('.box').on('click', '.js-next', function(event){
+    $('.js-box').on('click', '.js-next', function(event){
         currentQuestionNumber++;
         if (currentQuestionNumber+1<=STORE.length){
         renderQuestion();
@@ -230,7 +237,7 @@ function showResults(){
         array = bad;
     }
 
-    $('.box').html(`
+    $('.js-box').html(`
     <h2>${array[0]}</h2>
     <img src="${array[1]}" class="container-img" alt="${array[2]}">
     <button type="button" class="js-restart">Restart</button>`);
@@ -238,10 +245,10 @@ function showResults(){
 
 //restarts quiz
 function restartQuiz(){
-    $('.box').on('click', '.js-restart', function(event){
+    $('.js-box').on('click', '.js-restart', function(event){
         resetStats();
         $('.js-progress').html(``);
-        $('.box').html(`<h2>Prove You're the #1 Eagles Fan</h2>
+        $('.js-box').html(`<h2>Prove You're the #1 Eagles Fan</h2>
         <section class="image">
             <img src="img/logo.jpg" alt="Eagles logo" class="container-img">
         </secton>
