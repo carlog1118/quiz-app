@@ -126,7 +126,7 @@ $('.js-box').on('click', '.js-start', function(event){
 //This function renders question
 function renderQuestion(){
     let questionText= STORE[currentQuestionNumber];
-    let questionHtml= `<form class="js-question flex-c"><fieldset>
+    let questionHtml= `<form class="js-question"><fieldset>
     <legend>${questionText.question}</legend>
     <br>              
     <input type="radio" id="${questionText.options[0]}" value="${questionText.options[0]}"name="answer" required> 
@@ -141,13 +141,13 @@ function renderQuestion(){
     <input type="radio" id="${questionText.options[3]}" value="${questionText.options[3]}" name="answer" required>
     <label for="${questionText.options[3]}">${questionText.options[3]}</label>
     <br>
-    <button type="submit" class="js-submit">Submit</button>
+    <button type="submit" class="js-submit submit">Submit</button>
     </fieldset>
     </form>`;
    $('.js-box').html(questionHtml);   
 }
  
-//this function check answer
+//this function checks answer
 function checkAnswer(){
     $('.js-box').on('submit', '.js-question', function(event){
     event.preventDefault();
@@ -198,7 +198,7 @@ function wrongAnswer(){
     $('.js-box').html(wrong);
 }
 
-//moves on to next question or displays results
+//determines whether to move onto another question or display final results
 function nextQuestion(){
     $('.js-box').on('click', '.js-next', function(event){
         currentQuestionNumber++;
@@ -211,7 +211,7 @@ function nextQuestion(){
     });
 }
 
-//final quiz results
+//displays final quiz results
 function showResults(){
     const great= [
         '#1 Fan!',
